@@ -11,10 +11,18 @@
 |
 */
 
+
+Route::get('/aboutus', function () {
+    return view('aboutus');
+});
+Route::get('/contactus', function () {
+    return view('contactus');
+});
+Route::post('/contactus', 'ContactsController@create');
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
