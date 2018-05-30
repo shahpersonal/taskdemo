@@ -49,7 +49,7 @@
                                 @foreach($cities as $city)
                                 <tr class="gradeX">
                                     <td>{{$city->id}}</td>
-                                    <td>{{$city->cntrID}}</td>
+                                    <td>{{$city->country_name}}</td>
                                     <td>{{$city->ctName}}</td>
                                     <td>{{$city->ctName_arb}}</td>
 
