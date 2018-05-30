@@ -32,6 +32,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/settings', 'AdminController@settings');
     Route::get('/admin/check-pwd', 'AdminController@chkPassword');
+    Route::match(['get','post'],'/admin/profile', 'AdminController@updateProfile');
     Route::match(['get','post'],'/admin/update-pwd', 'AdminController@updatePassword');
     // country route admin
     Route::match(['get','post'],'/admin/add_country', 'CountryController@addCountry');
@@ -49,5 +50,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::match(['get','post'],'/admin/edit_area/{id}', 'AreasController@editArea');
     Route::match(['get','post'],'/admin/delete_area/{id}', 'AreasController@deleteArea');
     Route::get('/admin/view_area', 'AreasController@viewArea');
+
+
 });
 

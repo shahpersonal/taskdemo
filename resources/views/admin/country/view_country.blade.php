@@ -52,7 +52,9 @@
                                     <td>{{$country->name_arb}}</td>
                                     <td>{{$country->currency}}</td>
                                     <td class="center"><a href="{{url('/admin/edit_country/'.$country->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        @if(Auth::id() == 1)
                                         <a id="delCon" href="{{url('/admin/delete_country/'.$country->id)}}" class="btn btn-danger btn-mini country">Delete</a></td>
+                                    @endif
                                 </tr>
                                 @endforeach
 

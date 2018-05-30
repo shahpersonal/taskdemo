@@ -54,7 +54,9 @@
                                     <td>{{$area->areaName_arb}}</td>
 
                                     <td class="center"><a href="{{url('/admin/edit_area/'.$area->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        @if(Auth::id() == 1)
                                         <a id="delCon" href="{{url('/admin/delete_area/'.$area->id)}}" class="btn btn-danger btn-mini area">Delete</a></td>
+                                    @endif
                                 </tr>
                                 @endforeach
 

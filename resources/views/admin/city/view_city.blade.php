@@ -53,7 +53,9 @@
                                     <td>{{$city->ctName_arb}}</td>
 
                                     <td class="center"><a href="{{url('/admin/edit_city/'.$city->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        @if(Auth::id() == 1)
                                         <a id="delCon" href="{{url('/admin/delete_city/'.$city->id)}}" class="btn btn-danger btn-mini city">Delete</a></td>
+                                    @endif
                                 </tr>
                                 @endforeach
 

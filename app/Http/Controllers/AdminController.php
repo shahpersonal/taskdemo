@@ -14,13 +14,15 @@ class AdminController extends Controller
     {
        if($request->isMethod('post')){
            $data = $request->input();
-           if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password'],'admin'=>1]))
+           if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']]))
            {
+
                //Session::put('adminSession',$data['email']);
               return redirect('admin/dashboard');
            }
            else
            {
+
               return redirect('admin')->with('flash_message_error','Invalid Username or Password');
            }
        }
@@ -28,7 +30,9 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $user = User::where('id','<>',1)->get();
+        $usercount= count($user);
+        return view('admin.dashboard',compact('usercount'));
 //        if(Session::has('adminSession')) {
 //            return view('admin.dashboard');
 //        }
@@ -40,6 +44,20 @@ class AdminController extends Controller
     public function settings()
     {
         return view('admin.settings');
+    }
+    public function updateProfile(Request $request)
+    {
+        $id= Auth::User()->id;
+        if($request->isMethod('post')){
+         $data = $request->all();
+
+         User::where('id',$id)->update(['first_name'=>$data['first_name'],'last_name'=>$data['last_name'],'email'=>$data['email'],'phone'=>$data['phone']])  ;
+         return back()->with('flash_message_success','Profile Updated Successfully');
+        }
+      $userDetail = User::where('id',$id)->get()->first();
+
+      //echo "<pre>";print_r($userDetail);die();
+        return view('admin.profile',compact('userDetail'));
     }
     public function chkPassword(Request $request)
     {
