@@ -1,6 +1,5 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
-
     <div id="content">
         <div id="content-header">
             <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View City</a>
@@ -66,6 +65,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

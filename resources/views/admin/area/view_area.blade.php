@@ -49,7 +49,7 @@
                                 @foreach($areas as $area)
                                 <tr class="gradeX">
                                     <td>{{$area->id}}</td>
-                                    <td>{{$area->ctID}}</td>
+                                    <td>{{$area->city_name}}</td>
                                     <td>{{$area->areaName}}</td>
                                     <td>{{$area->areaName_arb}}</td>
 
