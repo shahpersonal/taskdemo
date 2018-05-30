@@ -25,4 +25,29 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'AdminController@login');
+Route::get('/logout', 'AdminController@logout');
+Route::post('/admin', 'AdminController@login');
+Route::group(['middleware'=>['auth']],function(){
+    Route::get('/admin/dashboard', 'AdminController@dashboard');
+    Route::get('/admin/settings', 'AdminController@settings');
+    Route::get('/admin/check-pwd', 'AdminController@chkPassword');
+    Route::match(['get','post'],'/admin/update-pwd', 'AdminController@updatePassword');
+    // country route admin
+    Route::match(['get','post'],'/admin/add_country', 'CountryController@addCountry');
+    Route::match(['get','post'],'/admin/edit_country/{id}', 'CountryController@editCountry');
+    Route::match(['get','post'],'/admin/delete_country/{id}', 'CountryController@deleteCountry');
+    Route::get('/admin/view_country', 'CountryController@viewCountry');
+    // city route admin
+    Route::match(['get','post'],'/admin/add_city', 'CitiesController@addCity');
+    Route::match(['get','post'],'/admin/edit_city/{id}', 'CitiesController@editCity');
+    Route::match(['get','post'],'/admin/delete_city/{id}', 'CitiesController@deleteCity');
+    Route::get('/admin/view_city', 'CitiesController@viewCity');
+    // city route admin
+    Route::match(['get','post'],'/admin/add_area', 'AreasController@addArea');
+    Route::get('/admin/get_city', 'AreasController@getCity');
+    Route::match(['get','post'],'/admin/edit_area/{id}', 'AreasController@editArea');
+    Route::match(['get','post'],'/admin/delete_area/{id}', 'AreasController@deleteArea');
+    Route::get('/admin/view_area', 'AreasController@viewArea');
+});
 
