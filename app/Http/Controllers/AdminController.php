@@ -28,6 +28,10 @@ class AdminController extends Controller
        }
       return view('admin.admin_login');
     }
+    public function register(Request $request)
+    {
+      return view('admin.admin_register');
+    }
     public function dashboard()
     {
         $user = User::where('id','<>',1)->get();

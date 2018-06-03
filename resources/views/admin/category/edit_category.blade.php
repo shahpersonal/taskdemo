@@ -3,9 +3,9 @@
 
     <div id="content">
         <div id="content-header">
-            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Add Country</a>
+            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Edit Category</a>
             </div>
-            <h1>Add Country</h1>
+            <h1>Edit Category</h1>
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -25,37 +25,41 @@
 
 
             <div class="row-fluid">
-
                 <div class="span12">
                     <div class="widget-box">
-
                         <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                            <h5>Add Country</h5>
+                            <h5>Edit Category</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form class="form-horizontal" method="post" action="{{url('/admin/add_country')}}" name="add_country" id="add_country" novalidate="novalidate">
+                            <form class="form-horizontal" method="post" action="{{url('/admin/edit_category/'.$categoryDetails->id)}}" name="edit_country" id="edit_country" novalidate="novalidate">
                                 {{csrf_field()}}
                                 <div class="control-group">
-                                    <label class="control-label">Country Name (English)</label>
+                                    <label class="control-label">Category Name (English)</label>
                                     <div class="controls">
-                                        <input type="text" name="cnt_name" id="cnt_name">
+                                        <input type="text" name="cat_name" id="cat_name" value="{{$categoryDetails->name}}">
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">Country Name (Arabic)</label>
+                                    <label class="control-label">Category Name (Arabic)</label>
                                     <div class="controls">
-                                        <input type="text" name="cnt_name_arb" id="cnt_name_arb">
+                                        <input type="text" name="cat_name_arb" id="cat_name_arb" value="{{$categoryDetails->name_arb}}">
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">Currency</label>
+                                    <label class="control-label">Description</label>
                                     <div class="controls">
-                                        <input type="text" name="currency" id="currency">
+                                        <input type="text" name="description" id="description" value="{{$categoryDetails->description}}">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">URL</label>
+                                    <div class="controls">
+                                        <input type="text" name="url" id="url" value="{{$categoryDetails->url}}">
                                     </div>
                                 </div>
 
                                 <div class="form-actions">
-                                    <input type="submit" value="Add Country" class="btn btn-success">
+                                    <input type="submit" value="Edit Category" class="btn btn-success">
                                 </div>
                             </form>
                         </div>

@@ -6,6 +6,7 @@
             <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View Country</a>
             </div>
             <h1>View Country</h1>
+
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -20,10 +21,21 @@
                 </div>
 
             @endif
+
         </div>
         <div class="container-fluid">
             <hr>
             <div class="row-fluid">
+                <form method="post">
+                    {{csrf_field()}}
+                    <input type="date" class="form-control input-lg" name="from" value="" style="width:auto; display:inline-block; border-radius:0; height: 42px;">
+                    <input type="date" class="form-control input-lg" name="to" value="" style="width:auto; display:inline-block; border-radius:0; height: 42px;">
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-default btn-lg btn-block">Filter</button>
+                    </div>
+
+                </form>
+                <a href="{{url('/admin/add_country')}}" class="btn btn-success" style="float:right;">Add Country</a>
                 <div class="span12">
 
 
@@ -32,6 +44,9 @@
                     <div class="widget-box">
                         <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
                             <h5>Country List</h5>
+                        </div>
+                        <div class="col-md-8 ">
+
                         </div>
                         <div class="widget-content nopadding">
                             <table class="table table-bordered data-table">
@@ -69,3 +84,6 @@
 
 
 @endsection
+@section('scripts')
+    <script type="text/javascript" src="{{asset('plugins/bootstrap-daterangepicker/daterangepicker.js', true)}}"></script>
+    @endsection

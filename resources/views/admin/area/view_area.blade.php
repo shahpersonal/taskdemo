@@ -24,6 +24,7 @@
         <div class="container-fluid">
             <hr>
             <div class="row-fluid">
+                <a href="{{url('/admin/add_area')}}" class="btn btn-success" style="float:right;">Add Area</a>
                 <div class="span12">
 
 

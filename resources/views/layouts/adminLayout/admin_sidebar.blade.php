@@ -4,22 +4,45 @@
         <li class="active"><a href="{{url('/admin/dashboard')}}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
         <li class="submenu"> <a href="{{url('/admin/view_country')}}"><i class="icon icon-th-list"></i> <span>Country</span> </a>
             <ul>
-                <li><a href="{{url('/admin/add_country')}}">Add Country</a></li>
+                {{--<li><a href="{{url('/admin/add_country')}}">Add Country</a></li>--}}
                 <li><a href="{{url('/admin/view_country')}}">View Country</a></li>
 
             </ul>
         </li>
         <li class="submenu"> <a href="{{url('/admin/view_city')}}"><i class="icon icon-th-list"></i> <span>City</span> </a>
             <ul>
-                <li><a href="{{url('/admin/add_city')}}">Add City</a></li>
+                {{--<li><a href="{{url('/admin/add_city')}}">Add City</a></li>--}}
                 <li><a href="{{url('/admin/view_city')}}">View City</a></li>
 
             </ul>
         </li>
         <li class="submenu"> <a href="{{url('/admin/view_area')}}"><i class="icon icon-th-list"></i> <span>Area</span> </a>
             <ul>
-                <li><a href="{{url('/admin/add_area')}}">Add Area</a></li>
+                {{--<li><a href="{{url('/admin/add_area')}}">Add Area</a></li>--}}
                 <li><a href="{{url('/admin/view_area')}}">View Area</a></li>
+
+            </ul>
+        </li>
+
+        <li class="submenu"> <a href="{{url('/admin/view_country')}}"><i class="icon icon-th-list"></i> <span>Category</span> </a>
+            <ul>
+                {{--<li><a href="{{url('/admin/add_category')}}">Add Category</a></li>--}}
+                <li><a href="{{url('/admin/view_category')}}">View Category</a></li>
+
+            </ul>
+        </li>
+
+        <li class="submenu"> <a href="{{url('role')}}"><i class="icon icon-th-list"></i> <span>Role</span> </a>
+            <ul>
+                <li><a href="{{url('role')}}">Role</a></li>
+
+
+            </ul>
+        </li>
+        <li class="submenu"> <a href="{{url('/admin/view_customer')}}"><i class="icon icon-th-list"></i> <span>Users</span> </a>
+            <ul>
+                <li><a href="{{url('/admin/add_customer')}}">Add User</a></li>
+                <li><a href="{{url('/admin/view_customer')}}">User List</a></li>
 
             </ul>
         </li>

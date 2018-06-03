@@ -28,6 +28,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@login');
 Route::get('/logout', 'AdminController@logout');
 Route::post('/admin', 'AdminController@login');
+Route::post('/register', 'AdminController@register');
+//Route::get('/admin/role',[
+// 'as'=>'admin.role.index',
+// 'uses'=> function()
+// {
+//  return view('admin.role.index');
+// }
+//]);
+Route::resource('role', 'RoleController');
+
 Route::group(['middleware'=>['auth']],function(){
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/settings', 'AdminController@settings');
@@ -50,6 +60,17 @@ Route::group(['middleware'=>['auth']],function(){
     Route::match(['get','post'],'/admin/edit_area/{id}', 'AreasController@editArea');
     Route::match(['get','post'],'/admin/delete_area/{id}', 'AreasController@deleteArea');
     Route::get('/admin/view_area', 'AreasController@viewArea');
+    //---- Category
+    Route::match(['get','post'],'/admin/add_category', 'CategoriesController@addCategory');
+    Route::match(['get','post'],'/admin/edit_category/{id}', 'CategoriesController@editCategory');
+    Route::match(['get','post'],'/admin/delete_category/{id}', 'CategoriesController@deleteCategory');
+    Route::get('/admin/view_category', 'CategoriesController@viewCategory');
+
+    //---- Customer
+    Route::match(['get','post'],'/admin/add_customer', 'CustomersController@addCustomer');
+    Route::match(['get','post'],'/admin/edit_customer/{id}', 'CustomersController@editCustomer');
+    Route::match(['get','post'],'/admin/delete_customer/{id}', 'CustomersController@deleteCustomer');
+    Route::get('/admin/view_customer', 'CustomersController@viewCustomer');
 
 
 });

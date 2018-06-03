@@ -3,9 +3,9 @@
 
     <div id="content">
         <div id="content-header">
-            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Add Country</a>
+            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Edit Role</a>
             </div>
-            <h1>Add Country</h1>
+            <h1>Edit Role</h1>
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -25,37 +25,45 @@
 
 
             <div class="row-fluid">
-
                 <div class="span12">
                     <div class="widget-box">
-
                         <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                            <h5>Add Country</h5>
+                            <h5>Edit Role</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form class="form-horizontal" method="post" action="{{url('/admin/add_country')}}" name="add_country" id="add_country" novalidate="novalidate">
+                            <form class="form-horizontal" method="post" action="{{route('role.update',$role->id)}}" name="edit_role" id="edit_role" novalidate="novalidate" role="form">
+                                {{method_field('PATCH')}}
                                 {{csrf_field()}}
                                 <div class="control-group">
-                                    <label class="control-label">Country Name (English)</label>
+                                    <label class="control-label"> Name</label>
                                     <div class="controls">
-                                        <input type="text" name="cnt_name" id="cnt_name">
+                                        <input type="text" name="name" id="name" value="{{$role->name}}">
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">Country Name (Arabic)</label>
+                                    <label class="control-label">Display Name</label>
                                     <div class="controls">
-                                        <input type="text" name="cnt_name_arb" id="cnt_name_arb">
+                                        <input type="text" name="display_name" id="display_name" value="{{$role->display_name}}">
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">Currency</label>
+                                    <label class="control-label">Description</label>
                                     <div class="controls">
-                                        <input type="text" name="currency" id="currency">
+                                        <input type="text" name="description" id="description" value="{{$role->description}}">
                                     </div>
+                                </div>
+                                <div class="control-group text-left">
+                                    <label class="control-label">Permission</label>
+                                  @foreach($permissions as $permission)
+                                        <div class="controls">
+
+                                        <input  style="opacity: 50 !important" type="checkbox" {{ in_array($permission->id,$role_permission)?"checked":"" }} name="permission[]" id="permission" value="{{$permission->id}}"> {{$permission->name}}<br/>
+                                        </div>
+                                   @endforeach
                                 </div>
 
                                 <div class="form-actions">
-                                    <input type="submit" value="Add Country" class="btn btn-success">
+                                    <input type="submit" value="Edit Role" class="btn btn-success">
                                 </div>
                             </form>
                         </div>
