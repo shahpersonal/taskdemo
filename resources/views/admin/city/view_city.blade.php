@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <hr>
             <div class="row-fluid">
-                <a href="{{url('/admin/add_city')}}" class="btn btn-success" style="float:right;">Add City</a>
+                <a href="{{route('add_city')}}" class="btn btn-success" style="float:right;">Add City</a>
                 <div class="span12">
 
 

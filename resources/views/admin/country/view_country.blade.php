@@ -35,7 +35,7 @@
                     </div>
 
                 </form>
-                <a href="{{url('/admin/add_country')}}" class="btn btn-success" style="float:right;">Add Country</a>
+                <a href="{{route('add_country')}}" class="btn btn-success" style="float:right;">Add Country</a>
                 <div class="span12">
 
 

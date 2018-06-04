@@ -41,28 +41,28 @@ class CustomersController extends Controller
         }
         return view('admin.customer.add_customer');
     }
-    public function editCategory(Request $request,$id = null)
-    {
-
-        if($request->isMethod('post')){
-            $data = $request->all();
-
-            $category =new Category;
-            $category->name = $data['cat_name'];
-            $category->name_arb = $data['cat_name_arb'];
-            $category->url = $data['url'];
-            $category->description = $data['description'];
-            $category->save();
-            return redirect('/admin/view_category')->with('flash_message_success','Category Added Successfully');
-        }
-        $categoryDetails = Category::where('id',$id)->first();
-
-        return view('admin.category.edit_category',compact('categoryDetails'));
-    }
-    public function viewCustomer()
-    {
-        echo "success";exit;
-//        $customers  = Customer::get();
-//        return view('admin.customer.view_customer',compact('customers'));
-    }
+//    public function editCategory(Request $request,$id = null)
+//    {
+//
+//        if($request->isMethod('post')){
+//            $data = $request->all();
+//
+//            $category =new Category;
+//            $category->name = $data['cat_name'];
+//            $category->name_arb = $data['cat_name_arb'];
+//            $category->url = $data['url'];
+//            $category->description = $data['description'];
+//            $category->save();
+//            return redirect('/admin/view_category')->with('flash_message_success','Category Added Successfully');
+//        }
+//        $categoryDetails = Category::where('id',$id)->first();
+//
+//        return view('admin.category.edit_category',compact('categoryDetails'));
+//    }
+//    public function viewCustomer()
+//    {
+//        echo "success";exit;
+////        $customers  = Customer::get();
+////        return view('admin.customer.view_customer',compact('customers'));
+//    }
 }

@@ -30,6 +30,7 @@ class AdminController extends Controller
     }
     public function register(Request $request)
     {
+       
       return view('admin.admin_register');
     }
     public function dashboard()
