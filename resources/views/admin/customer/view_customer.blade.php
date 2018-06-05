@@ -3,9 +3,10 @@
 
     <div id="content">
         <div id="content-header">
-            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Edit Country</a>
+            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View Customer</a>
             </div>
-            <h1>Edit Country</h1>
+            <h1>View Customer</h1>
+
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -20,48 +21,61 @@
                 </div>
 
             @endif
+
         </div>
-        <div class="container-fluid"><hr>
-
-
+        <div class="container-fluid">
+            <hr>
             <div class="row-fluid">
+
+                <a href="{{route('add_country')}}" class="btn btn-success" style="float:right;">Add Customer</a>
                 <div class="span12">
+
+
+
+
                     <div class="widget-box">
-                        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                            <h5>Edit Country</h5>
+                        <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+                            <h5>Country List</h5>
+                        </div>
+                        <div class="col-md-8 ">
+
                         </div>
                         <div class="widget-content nopadding">
-                            <form class="form-horizontal" method="post" action="{{url('/admin/edit_country/'.$countryDetails->id)}}" name="edit_country" id="edit_country" novalidate="novalidate">
-                                {{csrf_field()}}
-                                <div class="control-group">
-                                    <label class="control-label">Country Name (English)</label>
-                                    <div class="controls">
-                                        <input type="text" name="cnt_name" id="cnt_name" value="{{$countryDetails->name}}">
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label">Country Name (Arabic)</label>
-                                    <div class="controls">
-                                        <input type="text" name="cnt_name_arb" id="cnt_name_arb" value="{{$countryDetails->name_arb}}">
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label">Currency</label>
-                                    <div class="controls">
-                                        <input type="text" name="currency" id="currency" value="{{$countryDetails->currency}}">
-                                    </div>
-                                </div>
+                            <table class="table table-bordered data-table">
+                                <thead>
+                                <tr>
+                                    <th>Customer Id</th>
+                                    <th>Customer Name(English)</th>
+                                    <th>Customer Name(Arabic)</th>
+                                    <th>Currency</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($customers as $customer)
+                                    <tr class="gradeX">
+                                        <td>{{$customer->id}}</td>
+                                        <td>{{$customer->name}}</td>
+                                        <td>{{$customer->first_name}}</td>
+                                        <td>{{$customer->email}}</td>
+                                        <td class="center"><a href="{{url('/admin/edit_customer/'.$customer->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                            @if(Auth::id() == 1)
+                                                <a id="delCon" href="{{url('/admin/delete_customer/'.$customer->id)}}" class="btn btn-danger btn-mini country">Delete</a></td>
+                                        @endif
+                                    </tr>
+                                @endforeach
 
-                                <div class="form-actions">
-                                    <input type="submit" value="Edit Country" class="btn btn-success">
-                                </div>
-                            </form>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
+
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{asset('plugins/bootstrap-daterangepicker/daterangepicker.js', true)}}"></script>
 @endsection

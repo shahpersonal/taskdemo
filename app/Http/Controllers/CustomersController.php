@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-namespace App\Http\Controllers\Auth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
-
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Support\Facades\Hash;
 use App\Customer;
 use App\Role;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-
 class CustomersController extends Controller
 {
     //
+    use Notifiable;
+    use EntrustUserTrait;
     public function addCustomer(Request $request)
     {
 
@@ -36,7 +36,7 @@ class CustomersController extends Controller
             ]);
 
             $customer->attachRole(Role::where('name','dataentry')->first());
-            return $customer;
+           // return $customer;
             return redirect('/admin/view_customer')->with('flash_message_success','Customer Added Successfully');
         }
         return view('admin.customer.add_customer');
@@ -59,10 +59,10 @@ class CustomersController extends Controller
 //
 //        return view('admin.category.edit_category',compact('categoryDetails'));
 //    }
-//    public function viewCustomer()
-//    {
-//        echo "success";exit;
-////        $customers  = Customer::get();
-////        return view('admin.customer.view_customer',compact('customers'));
-//    }
+    public function viewCustomer()
+    {
+
+        $customers  = Customer::get();
+        return view('admin.customer.view_customer',compact('customers'));
+    }
 }

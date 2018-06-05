@@ -51,9 +51,13 @@ class CitiesController extends Controller
             return redirect('/admin/view_city')->with('flash_message_success', 'City Deleted Successfully');
         }
     }
-    public function viewCity()
+    public function viewCity(Request $request)
     {
         $cities =City::get();
+        //$uri = $request->path();
+        $method = $request->method();
+
+
         $cities = json_decode(json_encode($cities));
         foreach($cities as $key => $val){
             $country_name = Country::where(['id'=>$val->cntrID])->first();

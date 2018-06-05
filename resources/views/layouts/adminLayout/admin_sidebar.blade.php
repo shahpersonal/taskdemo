@@ -12,7 +12,7 @@
         <li class="submenu"> <a href="{{url('/admin/view_city')}}"><i class="icon icon-th-list"></i> <span>City</span> </a>
             <ul>
                 {{--<li><a href="{{url('/admin/add_city')}}">Add City</a></li>--}}
-                <li><a href="{{url('/admin/view_city')}}">View City</a></li>
+                <li class="active"><a href="{{url('/admin/view_city')}}">View City</a></li>
 
             </ul>
         </li>
