@@ -5,7 +5,7 @@
         <div id="content-header">
             <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Add Country</a>
             </div>
-            <h1>Add Country</h1>
+            <h1>Add User</h1>
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -20,6 +20,16 @@
                 </div>
 
             @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
         <div class="container-fluid"><hr>
 
@@ -30,7 +40,7 @@
                     <div class="widget-box">
 
                         <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                            <h5>Add Country</h5>
+                            <h5>Add User</h5>
                         </div>
                         <div class="widget-content nopadding">
                             <form class="form-horizontal" method="post" action="{{url('/admin/add_customer')}}" name="add_country" id="add_country" novalidate="novalidate">
@@ -50,13 +60,13 @@
                                 <div class="control-group">
                                     <label class="control-label">Emial Address:</label>
                                     <div class="controls">
-                                        <input type="text" id="email" name="email" class="span11" placeholder="Last name" />
+                                        <input type="text" id="email" name="email" class="span11" placeholder="Email" />
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Phone:</label>
                                     <div class="controls">
-                                        <input type="text" id="phone" name="phone" class="span11" placeholder="Last name" />
+                                        <input type="text" id="phone" name="phone" class="span11" placeholder="Phone" />
                                     </div>
                                 </div>
                                 <div class="control-group">

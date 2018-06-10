@@ -6,7 +6,9 @@
             <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View Country</a>
             </div>
             <h1>View Country</h1>
-
+            {{--<div class="alert alert-success alert-block">--}}
+            {{--{!! session('status') !!}--}}
+            {{--</div>--}}
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>

@@ -41,8 +41,8 @@
         </li>
         <li class="submenu"> <a href="{{url('/admin/view_customer')}}"><i class="icon icon-th-list"></i> <span>Users</span> </a>
             <ul>
-                <li><a href="{{url('/admin/add_customer')}}">Add User</a></li>
-                <li><a href="{{url('/admin/view_customer')}}">User List</a></li>
+                {{--<li><a href="{{url('/admin/add_customer')}}">Add User</a></li>--}}
+                <li><a href="{{url('/home')}}">User List</a></li>
 
             </ul>
         </li>

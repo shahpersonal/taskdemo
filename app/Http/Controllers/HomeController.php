@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
+use Illuminate\Support\Facades\Hash;
+use DB;
 
 class HomeController extends Controller
 {
@@ -25,7 +28,79 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::get();
+        $allRoles = Role::get();
+       // dd($allRoles);
 
-        return view('home',compact('users'));
+        return view('home',compact('users','allRoles'));
+    }
+    public function addUser(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $validatedData = $request->validate([
+                'first_name' => 'required|max:255',
+                'last_name' => 'required',
+                'email' =>'required|email',
+                'password' =>'required|max:100',
+                'phone' =>'required|max:11|min:8',
+            ]);
+            $data = $request->all();
+            $user = User::create([
+                'name' => $data['first_name'].' '.$data['last_name'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'password' => Hash::make($data['password']),
+            ]);
+            $user->attachRole(Role::where('name','data-entry')->first());
+          //  return $user;
+            return redirect('/home')->with('flash_message_success','User Added Successfully');
+
+
+//            $data = $request->all();
+//
+//            $user =new User;
+//            $user->name = $data['name'];
+//            $user->email = $data['email'];
+//            $user->password = $data['password'];
+//             $user->save();
+            $user->attachRole(Role::where('name','data-entry')->first());
+        }
+     return view('admin.customer.add_customer');
+    }
+    public function editUser(Request $request,$id=null)
+    {
+        $user = User::find($id);
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+//            $user =new User;
+//            $user->name = $data['name'];
+//            $user->email = $data['email'];
+//            $user->password = $data['password'];
+            User::where('id',$id)->update(['name'=>$data['name'],'email'=>$data['email'],'password'=>$data['password']]);
+           // $user->attachRole(Role::where('name','admin')->first());
+            return redirect('/home')->with('flash_message_success','User Edited Successfully');
+        }
+      return view('admin.customer.edit_customer',compact('user'));
+    }
+    public function editUserRole(Request $request,$id=null)
+    {
+        $user = User::find($id);
+        $allRoles = Role::get();
+        if($request->isMethod('post')){
+            $data = $request->all();
+            $roles = $request->roles;
+            DB::table('role_user')->where('user_id',$id)->delete();
+            foreach($roles as $role)
+            {
+            $user->attachRole($role);
+            }
+
+            // $user->attachRole(Role::where('name','admin')->first());
+            return redirect('/home')->with('flash_message_success','User Role Edited Successfully');
+        }
+    return view('edit_role',compact('user','allRoles'));
     }
 }

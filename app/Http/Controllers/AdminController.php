@@ -35,6 +35,7 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
+
         $user = User::where('id','<>',1)->get();
         $usercount= count($user);
         return view('admin.dashboard',compact('usercount'));

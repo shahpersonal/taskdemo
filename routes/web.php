@@ -36,9 +36,22 @@ Route::post('/register', 'AdminController@register');
 //  return view('admin.role.index');
 // }
 //]);
-Route::resource('role', 'RoleController');
 
-Route::group(['middleware'=>['auth','admin']],function(){
+Route::group(['middleware' => ['auth', 'role:admin']], function() {
+
+    Route::resource('role', 'RoleController');
+
+});
+
+//Route::resource('role',[
+//    'as' =>'RoleController',
+//    'middleware'=>'role:admin',
+//     'uses'=>   function() {
+//    return view('RoleController');
+//}
+//]);
+
+Route::group(['middleware'=>['auth']],function(){
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/settings', 'AdminController@settings');
     Route::get('/admin/check-pwd', 'AdminController@chkPassword');
@@ -67,10 +80,11 @@ Route::group(['middleware'=>['auth','admin']],function(){
     Route::get('/admin/view_category', 'CategoriesController@viewCategory');
 
     //---- Customer
-    Route::match(['get','post'],'/admin/add_customer', 'CustomersController@addCustomer');
-    Route::match(['get','post'],'/admin/edit_customer/{id}', 'CustomersController@editCustomer');
+    Route::match(['get','post'],'/admin/add_customer', 'HomeController@addUser')->name('add_customer');
+    Route::match(['get','post'],'/admin/edit_customer/{id}', 'HomeController@editUser')->name('edit_customer');
+    Route::match(['get','post'],'/admin/edit_role/{id}', 'HomeController@editUserRole');
     Route::match(['get','post'],'/admin/delete_customer/{id}', 'CustomersController@deleteCustomer');
-    Route::get('/admin/view_customer', 'CustomersController@viewCustomer');
+   // Route::get('/admin/view_customer', 'HomeController@viewCustomer');
 
 
 });

@@ -10,6 +10,10 @@ use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +21,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+
         //
     $roles = Role::all();
     return view('admin.role.index',compact('roles'));

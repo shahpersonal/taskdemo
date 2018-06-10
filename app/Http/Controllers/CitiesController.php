@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+
+
 use App\City;
 use App\Country;
+
 class CitiesController extends Controller
 {
     public function addCity(Request $request)
@@ -53,6 +56,42 @@ class CitiesController extends Controller
     }
     public function viewCity(Request $request)
     {
+       // return redirect()->away('https://www.google.com');
+//        return redirect()->action(
+//            'CountryController@editCountry', ['id' => 1]
+//        );
+       // return redirect()->action('CountryController@viewCountry');
+       // return redirect()->route('admin/edit_country/', ['id' => 1]);
+        //return redirect()->route('add_country');
+        //return redirect('admin/add_city');
+//       $tes =  $request->flash();
+//       dd($tes);
+//        $email = $request->flashOnly(['username', 'email']);
+//        echo  $email;exit;
+       // return redirect('/admin/view_country')->with('status', 'Profile updated!');
+//        if (View::exists('admin.city.view_city'))
+//        {
+//          echo "if";exit;
+//        }
+//        else
+//        {
+//            echo "else";exit;
+//        }
+//        $city = City::find(1);
+//
+//        echo url("/city/{$city->id}");exit;
+       // echo url()->current(); echo "</br>";
+
+// Get the current URL including the query string...
+        //echo url()->full();echo "</br>";
+
+// Get the full URL for the previous request...
+       // echo url()->previous();exit;
+       // $data = $request->session()->all();
+       // echo "<pre>";print_r( $data);exit;
+        //$request->session()->put('test', '123456');
+    //echo  $request->session()->get('test');exit;
+
         $cities =City::get();
         //$uri = $request->path();
         $method = $request->method();

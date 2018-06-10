@@ -3,7 +3,7 @@
 
     <div id="content">
         <div id="content-header">
-            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View Customer</a>
+            <div id="breadcrumb"> <a href="{{url('add_customer')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View Customer</a>
             </div>
             <h1>View Customer</h1>
 
@@ -58,7 +58,7 @@
                                         <td>{{$customer->name}}</td>
                                         <td>{{$customer->first_name}}</td>
                                         <td>{{$customer->email}}</td>
-                                        <td class="center"><a href="{{url('/admin/edit_customer/'.$customer->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        <td class="center"><a href="{{url('/edit_customer/'.$customer->id)}}" class="btn btn-primary btn-mini">Edit</a>
                                             @if(Auth::id() == 1)
                                                 <a id="delCon" href="{{url('/admin/delete_customer/'.$customer->id)}}" class="btn btn-danger btn-mini country">Delete</a></td>
                                         @endif

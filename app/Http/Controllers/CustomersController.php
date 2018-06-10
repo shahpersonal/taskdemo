@@ -7,6 +7,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Support\Facades\Hash;
 use App\Customer;
 use App\Role;
+use Validator;
 class CustomersController extends Controller
 {
     //
@@ -16,6 +17,36 @@ class CustomersController extends Controller
     {
 
         if($request->isMethod('post')){
+
+            $rules = [
+                'first_name' => 'required',
+                'email' => 'required|email',
+                'last_name' => 'required|max:250',
+            ];
+
+            $customMessages = [
+                'required' => 'The :attribute field is required.',
+            ];
+//
+            $this->validate($request, $rules, $customMessages);
+
+//            $validator = Validator::make($request->all(), [
+//                'first_name' => 'required|max:255',
+//                'last_name' => 'required',
+//            ]);
+//
+//            if ($validator->fails()) {
+//                return redirect('/admin/add_customer')
+//                    ->withErrors($validator)
+//                    ->withInput();
+//            }
+//            Validator::make($request->all(), [
+//                'first_name' => 'required|max:255',
+//                'last_name' => 'required',
+//            ])->validate();
+            $messages = [
+                'email.required' => 'We need to know your e-mail address!',
+            ];
             $data = $request->all();
 
 //            $customer =new Category;
