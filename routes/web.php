@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,8 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 Route::get('/aboutus', function () {
     return view('aboutus');
 });
@@ -37,11 +34,8 @@ Route::post('/register', 'AdminController@register');
 // }
 //]);
 
-
     Route::group(['middleware' => ['auth','role:admin']],function() {
     Route::resource('role', 'RoleController');
-
-
 
 });
 
@@ -86,8 +80,8 @@ Route::group(['middleware'=>['auth']],function(){
     //---- Products
     Route::post('/admin/add_product', ['uses' => 'ProductsController@saveProduct']);
     Route::get('/admin/add_product', ['uses' => 'ProductsController@addProduct','as' => 'add_product']);
-    Route::post('/admin/edit_product', ['uses' => 'ProductsController@editProduct']);
-    Route::get('/admin/edit_product', ['uses' => 'ProductsController@updateProduct','as' => 'update_product']);
+    Route::post('/admin/edit_product/{id}', ['uses' => 'ProductsController@editProduct']);
+    Route::get('/admin/edit_product/{id}', ['uses' => 'ProductsController@updateProduct']);
   //  Route::get('/admin/delete_category/{id}', 'CategoriesController@deleteCategory');
     Route::get('/admin/view_product', 'ProductsController@viewProduct');
 
