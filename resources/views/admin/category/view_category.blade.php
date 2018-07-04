@@ -47,6 +47,7 @@
                                     <th>Category Id</th>
                                     <th>Category Name(English)</th>
                                     <th>Category Name(Arabic)</th>
+                                    <th>Main Category</th>
                                     <th>Description</th>
                                     <th>URL</th>
                                     <th>Action</th>
@@ -58,11 +59,12 @@
                                     <td>{{$category->id}}</td>
                                     <td>{{$category->name}}</td>
                                     <td>{{$category->name_arb}}</td>
+                                    <td>{{$category->parent_name}}</td>
                                     <td>{{$category->description}}</td>
                                     <td>{{$category->url}}</td>
                                     <td class="center"><a href="{{url('/admin/edit_category/'.$category->id)}}" class="btn btn-primary btn-mini">Edit</a>
                                         @if(Auth::id() == 1)
-                                        <a id="delCon" href="{{url('/admin/delete_category/'.$category->id)}}" class="btn btn-danger btn-mini country">Delete</a></td>
+                                        <a id="delCon" href="{{url('/admin/delete_category/'.$category->id)}}" class="btn btn-danger btn-mini category">Delete</a></td>
                                     @endif
                                 </tr>
                                 @endforeach

@@ -3,9 +3,9 @@
 
     <div id="content">
         <div id="content-header">
-            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Add Category</a>
+            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> Add Product</a>
             </div>
-            <h1>Add Category</h1>
+            <h1>Add Prodcut</h1>
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -25,45 +25,46 @@
 
 
             <div class="row-fluid">
-
                 <div class="span12">
                     <div class="widget-box">
-
                         <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                            <h5>Add Category</h5>
+                            <h5>Add Product</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form class="form-horizontal" method="post" action="{{url('/admin/add_category')}}" name="add_category" id="add_category" novalidate="novalidate">
+                            <form class="form-horizontal" method="post" action="{{url('/admin/add_product')}}" name="add_product" id="add_product" novalidate="novalidate" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="control-group">
-                                    <label class="control-label">Category Name (English)</label>
+                                    <label class="control-label">Select Category</label>
                                     <div class="controls">
-                                        <input type="text" name="cat_name" id="cat_name">
+                                        <select class="form-control" name="category_id" id="category_id" style="width: 223px;">
+                                            <option value="">Product Category</option>
+                                            <?php echo $cat_dropdown; ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">Category Name (Arabic)</label>
+                                    <label class="control-label">Product Name (English)</label>
                                     <div class="controls">
-                                        <input type="text" name="cat_name_arb" id="cat_name_arb">
+                                        <input type="text" name="product_name" id="product_name">
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">Category Lavel</label>
+                                    <label class="control-label">Product Name (Arabic)</label>
                                     <div class="controls">
+                                        <input type="text" name="product_name_arb" id="product_name_arb">
+                                    </div>
+                                </div>
 
-                                       <select id="level" name="level" style="width: 220px;">
-                                           <option value="0">Main Category</option>
-                                           @foreach($levels as $level)
-                                               <option value="{{$level->id}}">{{$level->name}}</option>
-                                               @endforeach
-
-                                       </select>
+                                <div class="control-group">
+                                    <label class="control-label">Product Code</label>
+                                    <div class="controls">
+                                        <input type="text" name="product_code" id="product_code">
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">URL</label>
+                                    <label class="control-label">Product Color</label>
                                     <div class="controls">
-                                        <input type="text" name="url" id="url">
+                                        <input type="text" name="product_color" id="product_color">
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -72,9 +73,22 @@
                                         <input type="text" name="description" id="description">
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                    <label class="control-label">Price</label>
+                                    <div class="controls">
+                                        <input type="text" name="price" id="price">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Image</label>
+                                    <div class="controls">
+                                        <input type="file" name="image" id="image">
+                                    </div>
+                                </div>
+
 
                                 <div class="form-actions">
-                                    <input type="submit" value="Add Category" class="btn btn-success">
+                                    <input type="submit" value="Add Product" class="btn btn-success">
                                 </div>
                             </form>
                         </div>

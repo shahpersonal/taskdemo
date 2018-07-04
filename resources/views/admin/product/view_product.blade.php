@@ -3,10 +3,9 @@
 
     <div id="content">
         <div id="content-header">
-            <div id="breadcrumb"> <a href="{{url('add_customer')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View Customer</a>
+            <div id="breadcrumb"> <a href="{{url('/admin/dashboard')}}" title="Go to Home" class="tip-bottom">Home<i class="icon-home"></i> View Product</a>
             </div>
-            <h1>View Customer</h1>
-
+            <h1>View Product</h1>
             @if(Session::has('flash_message_error'))
                 <div class="alert alert-error alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -21,13 +20,11 @@
                 </div>
 
             @endif
-
         </div>
         <div class="container-fluid">
             <hr>
             <div class="row-fluid">
-
-                <a href="{{route('add_country')}}" class="btn btn-success" style="float:right;">Add Customer</a>
+                <a href="{{route('add_product')}}" class="btn btn-success" style="float:right;">Add Product</a>
                 <div class="span12">
 
 
@@ -35,33 +32,37 @@
 
                     <div class="widget-box">
                         <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                            <h5>Country List</h5>
-                        </div>
-                        <div class="col-md-8 ">
-
+                            <h5>Product List</h5>
                         </div>
                         <div class="widget-content nopadding">
                             <table class="table table-bordered data-table">
                                 <thead>
                                 <tr>
-                                    <th>Customer Id</th>
-                                    <th>Customer Name(English)</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Product Code</th>
+                                    <th>Image</th>
+                                    <th>Product Color</th>
+                                    <th>Description</th>
 
-                                    <th>Customer Name(Arabic)</th>
-                                    <th>Currency</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($customers as $customer)
+                                @foreach($products as $product)
                                     <tr class="gradeX">
-                                        <td>{{$customer->id}}</td>
-                                        <td>{{$customer->name}}</td>
-                                        <td>{{$customer->first_name}}</td>
-                                        <td>{{$customer->email}}</td>
-                                        <td class="center"><a href="{{url('/edit_customer/'.$customer->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        <td>{{$product->product_name}}</td>
+                                        <td>{{$product->catt_name}}</td>
+                                        <td>{{$product->product_code}}</td>
+                                        <td>@if($product->image !='') <img width="100px;" src="{{ asset('uploads/products/'.$product->image, true) }}" alt="" class="media-object img-circle"> @else
+                                                <span class="glyphicons glyphicons-user-add"></span>
+                                            @endif</td>
+                                        <td>{{$product->product_color}}</td>
+                                        <td>{{$product->description}}</td>
+
+                                        <td class="center"><a href="{{url('/admin/edit_product/'.$product->id)}}" class="btn btn-primary btn-mini">Edit</a>
                                             @if(Auth::id() == 1)
-                                                <a id="delCon" href="{{url('/admin/delete_customer/'.$customer->id)}}" class="btn btn-danger btn-mini country">Delete</a></td>
+                                                <a id="delCon" href="{{url('/admin/delete_product/'.$product->id)}}" class="btn btn-danger btn-mini product">Delete</a></td>
                                         @endif
                                     </tr>
                                 @endforeach
@@ -76,7 +77,4 @@
     </div>
 
 
-@endsection
-@section('scripts')
-    <script type="text/javascript" src="{{asset('plugins/bootstrap-daterangepicker/daterangepicker.js', true)}}"></script>
 @endsection

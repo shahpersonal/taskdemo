@@ -45,6 +45,7 @@
                                 <tr>
                                     <th>Customer Id</th>
                                     <th>Customer Name</th>
+                                    <th>Image</th>
                                     <th>Email</th>
                                     <th>Role</th>
 
@@ -58,7 +59,9 @@
                                     <tr class="gradeX">
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
-
+                                        <td>@if($user->image !='') <img width="100px;" src="{{ asset('uploads/users/'.$user->image, true) }}" alt="" class="media-object img-circle"> @else
+                                                <span class="glyphicons glyphicons-user-add"></span>
+                                            @endif</td>
                                         <td>{{$user->email}}</td>
                                         <td>
                                         @foreach($user->roles as $role)

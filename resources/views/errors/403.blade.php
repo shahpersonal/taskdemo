@@ -2,7 +2,7 @@
 @section('content')
 
     <div id="content">
-       <h2> Restricted Area </h2>
+        <h2> Restricted Area </h2>
     </div>
 
 

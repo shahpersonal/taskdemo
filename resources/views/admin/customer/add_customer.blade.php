@@ -43,7 +43,7 @@
                             <h5>Add User</h5>
                         </div>
                         <div class="widget-content nopadding">
-                            <form class="form-horizontal" method="post" action="{{url('/admin/add_customer')}}" name="add_country" id="add_country" novalidate="novalidate">
+                            <form class="form-horizontal" method="post" enctype="multipart/form-data" action="{{url('/admin/add_customer')}}" name="add_country" id="add_country" novalidate="novalidate">
                                 {{csrf_field()}}
                                 <div class="control-group">
                                     <label class="control-label">First Name :</label>
@@ -75,6 +75,15 @@
                                         <input type="password"  name="password" id="password" class="span11" placeholder="Enter Password"  />
                                     </div>
                                 </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="exampleInputFile">File input</label>
+                                    <div class="controls">
+                                            <input type="file" class="custom-file-input" id="image" name="image">
+
+                                        </div>
+
+                                    </div>
+
 
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-success">Add User</button>

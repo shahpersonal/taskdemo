@@ -8,7 +8,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Role;
 
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
     use EntrustUserTrait;
@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','first_name','last_name','phone','image','admin'
+        'name', 'email', 'password','first_name','last_name','phone','admin'
     ];
 
     /**

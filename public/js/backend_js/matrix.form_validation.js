@@ -258,6 +258,41 @@ $(document).ready(function(){
             $(element).parents('.control-group').addClass('success');
         }
     });
+    $("#add_product").validate({
+        rules:{
+            category_id:{
+                required:true
+            },
+            product_name:{
+                required:true
+            },
+            product_name_arb:{
+                required:true
+            },
+            product_code:{
+                required:true
+            },
+            product_color:{
+                required:true
+            },
+            description:{
+                required:true
+            },
+            price:{
+                required:true,
+                number:true
+            },
+        },
+        errorClass: "help-inline",
+        errorElement: "span",
+        highlight:function(element, errorClass, validClass) {
+            $(element).parents('.control-group').addClass('error');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).parents('.control-group').removeClass('error');
+            $(element).parents('.control-group').addClass('success');
+        }
+    });
 	$(".country").click(function(){
 
 		if(confirm('Are you sure want to delete this country?'))
@@ -266,6 +301,14 @@ $(document).ready(function(){
 		}
 		return false;
 	});
+    $(".category").click(function(){
+
+        if(confirm('Are you sure want to delete this category?'))
+        {
+            return true;
+        }
+        return false;
+    });
     $(".city").click(function(){
 
         if(confirm('Are you sure want to delete this city?'))

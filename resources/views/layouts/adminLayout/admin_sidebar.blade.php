@@ -1,22 +1,22 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="{{url('/admin/dashboard')}}" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
     <ul>
-        <li class="active"><a href="{{url('/admin/dashboard')}}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-        <li class="submenu"> <a href="{{url('/admin/view_country')}}"><i class="icon icon-th-list"></i> <span>Country</span> </a>
+        <li class="{{Request::is('admin/dashboard') ? 'active' : ''}}"><a href="{{url('/admin/dashboard')}}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+        <li  class="submenu {{Request::is('admin/view_country') ? 'active' : ''}}"> <a href="{{url('/admin/view_country')}}"><i class="icon icon-th-list"></i> <span>Country</span> </a>
             <ul>
                 {{--<li><a href="{{url('/admin/add_country')}}">Add Country</a></li>--}}
                 <li><a href="{{url('/admin/view_country')}}">View Country</a></li>
 
             </ul>
         </li>
-        <li class="submenu"> <a href="{{url('/admin/view_city')}}"><i class="icon icon-th-list"></i> <span>City</span> </a>
+        <li class="submenu {{Request::is('admin/view_city') ? 'active' : ''}}"> <a href="{{url('/admin/view_city')}}"><i class="icon icon-th-list"></i> <span>City</span> </a>
             <ul>
                 {{--<li><a href="{{url('/admin/add_city')}}">Add City</a></li>--}}
                 <li class="active"><a href="{{url('/admin/view_city')}}">View City</a></li>
 
             </ul>
         </li>
-        <li class="submenu"> <a href="{{url('/admin/view_area')}}"><i class="icon icon-th-list"></i> <span>Area</span> </a>
+        <li class="submenu {{Request::is('admin/view_area') ? 'active' : ''}}"> <a href="{{url('/admin/view_area')}}"><i class="icon icon-th-list"></i> <span>Area</span> </a>
             <ul>
                 {{--<li><a href="{{url('/admin/add_area')}}">Add Area</a></li>--}}
                 <li><a href="{{url('/admin/view_area')}}">View Area</a></li>
@@ -24,22 +24,31 @@
             </ul>
         </li>
 
-        <li class="submenu"> <a href="{{url('/admin/view_country')}}"><i class="icon icon-th-list"></i> <span>Category</span> </a>
+        <li class="submenu {{Request::is('admin/view_category') ? 'active' : ''}}"> <a href="{{url('/admin/view_country')}}"><i class="icon icon-pencil"></i> <span>Category</span> </a>
             <ul>
                 {{--<li><a href="{{url('/admin/add_category')}}">Add Category</a></li>--}}
                 <li><a href="{{url('/admin/view_category')}}">View Category</a></li>
 
             </ul>
         </li>
+        <li class="submenu {{Request::is('admin/view_product') ? 'active' : ''}}"> <a href="{{url('/admin/view_product')}}"><i class="icon icon-pencil"></i> <span>Product</span> </a>
+            <ul>
+                {{--<li><a href="{{url('/admin/add_category')}}">Add Category</a></li>--}}
+                <li><a href="{{url('/admin/view_product')}}">View Product</a></li>
 
-        <li class="submenu"> <a href="{{url('role')}}"><i class="icon icon-th-list"></i> <span>Role</span> </a>
+            </ul>
+        </li>
+        @role('admin')
+        <li class="submenu {{Request::is('role') ? 'active' : ''}}"> <a href="{{url('role')}}"><i class="icon icon-info-sign"></i> <span>Role</span> </a>
             <ul>
                 <li><a href="{{url('role')}}">Role</a></li>
 
 
             </ul>
         </li>
-        <li class="submenu"> <a href="{{url('/admin/view_customer')}}"><i class="icon icon-th-list"></i> <span>Users</span> </a>
+        @endrole
+
+        <li class="submenu {{Request::is('home') ? 'active' : ''}}"> <a href="{{url('/admin/view_customer')}}"><i class="icon-user"></i> <span>Users</span> </a>
             <ul>
                 {{--<li><a href="{{url('/admin/add_customer')}}">Add User</a></li>--}}
                 <li><a href="{{url('/home')}}">User List</a></li>

@@ -37,9 +37,11 @@ Route::post('/register', 'AdminController@register');
 // }
 //]);
 
-Route::group(['middleware' => ['auth', 'role:admin']], function() {
 
+    Route::group(['middleware' => ['auth','role:admin']],function() {
     Route::resource('role', 'RoleController');
+
+
 
 });
 
@@ -58,7 +60,10 @@ Route::group(['middleware'=>['auth']],function(){
     Route::match(['get','post'],'/admin/profile', 'AdminController@updateProfile');
     Route::match(['get','post'],'/admin/update-pwd', 'AdminController@updatePassword');
     // country route admin
-    Route::match(['get','post'],'/admin/add_country', 'CountryController@addCountry')->name('add_country');
+
+    Route::post('/admin/add_country', ['uses' => 'CountryController@addCountry','as' => 'add_country']);
+   Route::get('/admin/add_country', ['uses' => 'CountryController@addCountry','as' => 'add_country']);
+  //  Route::match(['get','post'],'/admin/add_country', 'CountryController@addCountry')->name('add_country');
     Route::match(['get','post'],'/admin/edit_country/{id}', 'CountryController@editCountry');
     Route::match(['get','post'],'/admin/delete_country/{id}', 'CountryController@deleteCountry');
     Route::get('/admin/view_country', 'CountryController@viewCountry');
@@ -78,9 +83,18 @@ Route::group(['middleware'=>['auth']],function(){
     Route::match(['get','post'],'/admin/edit_category/{id}', 'CategoriesController@editCategory');
     Route::match(['get','post'],'/admin/delete_category/{id}', 'CategoriesController@deleteCategory');
     Route::get('/admin/view_category', 'CategoriesController@viewCategory');
+    //---- Products
+    Route::post('/admin/add_product', ['uses' => 'ProductsController@saveProduct']);
+    Route::get('/admin/add_product', ['uses' => 'ProductsController@addProduct','as' => 'add_product']);
+    Route::post('/admin/edit_product', ['uses' => 'ProductsController@editProduct']);
+    Route::get('/admin/edit_product', ['uses' => 'ProductsController@updateProduct','as' => 'update_product']);
+  //  Route::get('/admin/delete_category/{id}', 'CategoriesController@deleteCategory');
+    Route::get('/admin/view_product', 'ProductsController@viewProduct');
 
     //---- Customer
-    Route::match(['get','post'],'/admin/add_customer', 'HomeController@addUser')->name('add_customer');
+    Route::post('/admin/add_customer', 'HomeController@addUser')->name('add_customer');
+    Route::get('/admin/add_customer', 'HomeController@addUserForm')->name('add_customerForm');
+
     Route::match(['get','post'],'/admin/edit_customer/{id}', 'HomeController@editUser')->name('edit_customer');
     Route::match(['get','post'],'/admin/edit_role/{id}', 'HomeController@editUserRole');
     Route::match(['get','post'],'/admin/delete_customer/{id}', 'CustomersController@deleteCustomer');

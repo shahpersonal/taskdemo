@@ -46,6 +46,19 @@
                                     </div>
                                 </div>
                                 <div class="control-group">
+                                    <label class="control-label">Category Lavel</label>
+                                    <div class="controls">
+
+                                        <select id="level" name="level" style="width: 220px;">
+                                            <option value="0" @if($categoryDetails->parent_id == 0) selected @endif>Main Category</option>
+                                            @foreach($levels as $level)
+                                                <option value="{{$level->id}}" @if($level->id == $categoryDetails->parent_id) selected @endif>{{$level->name}}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
                                     <label class="control-label">Description</label>
                                     <div class="controls">
                                         <input type="text" name="description" id="description" value="{{$categoryDetails->description}}">

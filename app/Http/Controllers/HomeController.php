@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsersRequest;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use Intervention\Image\Facades\Image as Mimage;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 use DB;
 
 class HomeController extends Controller
@@ -33,23 +36,30 @@ class HomeController extends Controller
 
         return view('home',compact('users','allRoles'));
     }
-    public function addUser(Request $request)
+    public function addUserForm()
     {
+        return view('admin.customer.add_customer');
+    }
+    public function addUser(UsersRequest $request)
+    {
+
         if($request->isMethod('post'))
         {
-            $validatedData = $request->validate([
-                'first_name' => 'required|max:255',
-                'last_name' => 'required',
-                'email' =>'required|email',
-                'password' =>'required|max:100',
-                'phone' =>'required|max:11|min:8',
-            ]);
+
             $data = $request->all();
+
+            if($request['image'] != ''){
+
+                $image_name = $this->uploadImage($request->file('image'));
+              //  $driver->image =$image_name;
+            }
+
             $user = User::create([
                 'name' => $data['first_name'].' '.$data['last_name'],
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'email' => $data['email'],
+                'image' => $image_name,
                 'phone' => $data['phone'],
                 'password' => Hash::make($data['password']),
             ]);
@@ -67,7 +77,22 @@ class HomeController extends Controller
 //             $user->save();
             $user->attachRole(Role::where('name','data-entry')->first());
         }
-     return view('admin.customer.add_customer');
+
+    }
+    private function uploadImage($file){
+        $extension = $file->getClientOriginalExtension();
+
+        //$file_name = Carbon::now()->format('Y-m-d_H-i-s')."_".str_random(10).".".$extension;
+        $file_name = Carbon::now()->format('Ymd_His')."_".str_random(10).".".$extension;
+
+
+        $image = Mimage::make($file);
+        $image->resize(200, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image->save(public_path().'/uploads/users/'.$file_name);
+
+        return $file_name;
     }
     public function editUser(Request $request,$id=null)
     {
