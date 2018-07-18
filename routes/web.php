@@ -16,9 +16,10 @@ Route::get('/contactus', function () {
     return view('contactus');
 });
 Route::post('/contactus', 'ContactsController@create');
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/', 'IndexController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -82,8 +83,13 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/admin/add_product', ['uses' => 'ProductsController@addProduct','as' => 'add_product']);
     Route::post('/admin/edit_product/{id}', ['uses' => 'ProductsController@editProduct']);
     Route::get('/admin/edit_product/{id}', ['uses' => 'ProductsController@updateProduct']);
-  //  Route::get('/admin/delete_category/{id}', 'CategoriesController@deleteCategory');
+    Route::get('/admin/delete_product/{id}', 'ProductsController@deleteProduct');
     Route::get('/admin/view_product', 'ProductsController@viewProduct');
+
+
+    Route::get('/admin/add-attribute/{id}', ['uses' => 'ProductsController@addAttributes']);
+    Route::post('/admin/add-attribute/{id}', ['uses' => 'ProductsController@saveAttributes']);
+    Route::get('/admin/delete_attribute/{id}/{proId}', 'ProductsController@deleteProductAttribute');
 
     //---- Customer
     Route::post('/admin/add_customer', 'HomeController@addUser')->name('add_customer');

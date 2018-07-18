@@ -65,7 +65,8 @@
                                 <div class="control-group">
                                     <label class="control-label">Description</label>
                                     <div class="controls">
-                                        <input type="text" name="description" id="description" value="{{$productDetail->description}}">
+
+                                        <textarea  name="description" id="description">{{$productDetail->description}}</textarea>
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -86,7 +87,7 @@
                                         <input type="file" name="image" id="image">
                                     </div>
                                 </div>
-
+                                <input type="hidden" name="current_image" id="current_image" value="{{$productDetail->image}}">
 
                                 <div class="form-actions">
                                     <input type="submit" value="Edit Product" class="btn btn-success">

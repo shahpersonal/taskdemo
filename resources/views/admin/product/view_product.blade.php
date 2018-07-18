@@ -60,14 +60,35 @@
                                         <td>{{$product->product_color}}</td>
                                         <td>{{$product->description}}</td>
 
-                                        <td class="center"><a href="{{url('/admin/edit_product/'.$product->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        <td class="center">
+                                            <a href="{{url('/admin/add-attribute/'.$product->id)}}" class="btn btn-primary btn-mini">Add</a>
+                                            <a href="#myModal_{{$product->id}}" data-toggle="modal" class="btn btn-success btn-mini" >View</a>
+                                            <a href="{{url('/admin/edit_product/'.$product->id)}}" class="btn btn-primary btn-mini">Edit</a>
                                             @if(Auth::id() == 1)
                                                 <a id="delCon" href="{{url('/admin/delete_product/'.$product->id)}}" class="btn btn-danger btn-mini product">Delete</a></td>
                                         @endif
                                     </tr>
+
+                                        <div id="myModal_{{$product->id}}" class="modal hide">
+                                            <div class="modal-header">
+                                                <button data-dismiss="modal" class="close" type="button">×</button>
+                                                <h3>{{$product->product_name}} Full Details</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Product ID: {{$product->id}}</p>
+                                                <p>Category ID: {{$product->category_id}}</p>
+                                                <p>Product Code: {{$product->product_code}}</p>
+                                                <p>Product Color: {{$product->product_color}}</p>
+                                                <p>Price: {{$product->price}}</p>
+                                                <p>Detail: {{$product->description}}</p>
+                                            </div>
+                                        </div>
+
                                 @endforeach
 
                                 </tbody>
+
+
                             </table>
                         </div>
                     </div>
