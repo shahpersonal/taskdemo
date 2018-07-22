@@ -22,7 +22,11 @@ Route::post('/contactus', 'ContactsController@create');
 Route::get('/', 'IndexController@index');
 Auth::routes();
 
+// Frontend URL
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products/{url}','ProductsController@products');
+
+
 Route::get('/admin', 'AdminController@login');
 Route::get('/logout', 'AdminController@logout');
 Route::post('/admin', 'AdminController@login');
@@ -48,7 +52,7 @@ Route::post('/register', 'AdminController@register');
 //}
 //]);
 
-Route::group(['middleware'=>['auth']],function(){
+Route::group(['middleware'=>['auth','role:admin']],function(){
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/settings', 'AdminController@settings');
     Route::get('/admin/check-pwd', 'AdminController@chkPassword');
