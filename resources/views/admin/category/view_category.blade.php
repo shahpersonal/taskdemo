@@ -62,7 +62,9 @@
                                     <td>{{$category->parent_name}}</td>
                                     <td>{{$category->description}}</td>
                                     <td>{{$category->url}}</td>
+
                                     <td class="center"><a href="{{url('/admin/edit_category/'.$category->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        @if($category->status == 2)<a href="{{url('/admin/change_category/'.$category->id.'/'.$category->status)}}" class="btn btn-danger btn btn-mini changestatus">Active</a> @else <a href="{{url('/admin/change_category/'.$category->id.'/'.$category->status)}}" class="btn btn-primary btn-mini changestatus">Deactive</a> @endif
                                         @if(Auth::id() == 1)
                                         <a id="delCon" href="{{url('/admin/delete_category/'.$category->id)}}" class="btn btn-danger btn-mini category">Delete</a></td>
                                     @endif

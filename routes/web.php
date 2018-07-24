@@ -25,6 +25,8 @@ Auth::routes();
 // Frontend URL
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/products/{url}','ProductsController@products');
+Route::get('/product/{id}', ['uses' => 'ProductsController@product']);
+Route::get('/get-product-price','ProductsController@getProductPrice');
 
 
 Route::get('/admin', 'AdminController@login');
@@ -82,6 +84,7 @@ Route::group(['middleware'=>['auth','role:admin']],function(){
     Route::match(['get','post'],'/admin/edit_category/{id}', 'CategoriesController@editCategory');
     Route::match(['get','post'],'/admin/delete_category/{id}', 'CategoriesController@deleteCategory');
     Route::get('/admin/view_category', 'CategoriesController@viewCategory');
+    Route::get('/admin/change_category/{id}/{status}', 'CategoriesController@changeCategoryStatus');
     //---- Products
     Route::post('/admin/add_product', ['uses' => 'ProductsController@saveProduct']);
     Route::get('/admin/add_product', ['uses' => 'ProductsController@addProduct','as' => 'add_product']);
@@ -89,6 +92,7 @@ Route::group(['middleware'=>['auth','role:admin']],function(){
     Route::get('/admin/edit_product/{id}', ['uses' => 'ProductsController@updateProduct']);
     Route::get('/admin/delete_product/{id}', 'ProductsController@deleteProduct');
     Route::get('/admin/view_product', 'ProductsController@viewProduct');
+
 
 
     Route::get('/admin/add-attribute/{id}', ['uses' => 'ProductsController@addAttributes']);

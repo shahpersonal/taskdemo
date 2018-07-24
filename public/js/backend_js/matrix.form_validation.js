@@ -309,6 +309,14 @@ $(document).ready(function(){
         }
         return false;
     });
+    $(".changestatus").click(function(){
+
+        if(confirm('Are you sure want to change status of this category?'))
+        {
+            return true;
+        }
+        return false;
+    });
     $(".city").click(function(){
 
         if(confirm('Are you sure want to delete this city?'))

@@ -53,10 +53,18 @@ class CategoriesController extends Controller
         return view('admin.category.edit_category',compact('categoryDetails','levels'));
     }
     public function deleteCategory(Request $request,$id = null)
+{
+    if(!empty($id)) {
+        Category::where('id',$id)->delete();
+        return redirect('/admin/view_category')->with('flash_message_success', 'Category Deleted Successfully');
+    }
+}
+    public function changeCategoryStatus(Request $request,$id = null,$status=null)
     {
+        $status = ($status=='1'?2:1);
         if(!empty($id)) {
-            Category::where('id',$id)->delete();
-            return redirect('/admin/view_category')->with('flash_message_success', 'Category Deleted Successfully');
+            Category::where('id',$id)->update(['status'=>$status]);
+            return redirect('/admin/view_category')->with('flash_message_success', 'Category updated Successfully');
         }
     }
     public function viewCategory()
