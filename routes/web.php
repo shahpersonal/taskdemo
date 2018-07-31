@@ -27,7 +27,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/products/{url}','ProductsController@products');
 Route::get('/product/{id}', ['uses' => 'ProductsController@product']);
 Route::get('/get-product-price','ProductsController@getProductPrice');
-
+//-----------Add to cart
+Route::post('/add-cart', 'ProductsController@addtocart');
+Route::get('/cart', 'ProductsController@cart');
+// delete cart product
+Route::get('/cart/update-quantity/{id}/{qty}', 'ProductsController@updateCartProductQuantity');
+Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct');
 
 Route::get('/admin', 'AdminController@login');
 Route::get('/logout', 'AdminController@logout');
@@ -93,11 +98,15 @@ Route::group(['middleware'=>['auth','role:admin']],function(){
     Route::get('/admin/delete_product/{id}', 'ProductsController@deleteProduct');
     Route::get('/admin/view_product', 'ProductsController@viewProduct');
 
+   // Route::post('/add-cart', ['uses' => 'ProductsController@addtocart']);
+
 
 
     Route::get('/admin/add-attribute/{id}', ['uses' => 'ProductsController@addAttributes']);
     Route::post('/admin/add-attribute/{id}', ['uses' => 'ProductsController@saveAttributes']);
     Route::get('/admin/delete_attribute/{id}/{proId}', 'ProductsController@deleteProductAttribute');
+    Route::get('/admin/add-image/{id}', ['uses' => 'ProductsController@addImages']);
+    Route::post('/admin/add-image/{id}', ['uses' => 'ProductsController@saveImages']);
 
     //---- Customer
     Route::post('/admin/add_customer', 'HomeController@addUser')->name('add_customer');

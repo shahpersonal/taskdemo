@@ -43,7 +43,7 @@
                                     <th>Product Code</th>
                                     <th>Image</th>
                                     <th>Product Color</th>
-                                    <th>Description</th>
+                                    {{--<th>Description</th>--}}
 
                                     <th>Action</th>
                                 </tr>
@@ -58,12 +58,13 @@
                                                 <span class="glyphicons glyphicons-user-add"></span>
                                             @endif</td>
                                         <td>{{$product->product_color}}</td>
-                                        <td>{{$product->description}}</td>
+                                        {{--<td>{{$product->description}}</td>--}}
 
                                         <td class="center">
-                                            <a href="{{url('/admin/add-attribute/'.$product->id)}}" class="btn btn-primary btn-mini">Add</a>
+                                            <a title="Add Attribute" href="{{url('/admin/add-attribute/'.$product->id)}}" class="btn btn-primary btn-mini">Add</a>
                                             <a href="#myModal_{{$product->id}}" data-toggle="modal" class="btn btn-success btn-mini" >View</a>
                                             <a href="{{url('/admin/edit_product/'.$product->id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                            <a title="Add Image" href="{{url('/admin/add-image/'.$product->id)}}" class="btn btn-primary btn-mini">Add</a>
                                             @if(Auth::id() == 1)
                                                 <a id="delCon" href="{{url('/admin/delete_product/'.$product->id)}}" class="btn btn-danger btn-mini product">Delete</a></td>
                                         @endif

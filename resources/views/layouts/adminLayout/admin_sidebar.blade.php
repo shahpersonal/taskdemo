@@ -38,6 +38,13 @@
 
             </ul>
         </li>
+        <li class="submenu {{Request::is('admin/view_coupon') ? 'active' : ''}}"> <a href="{{url('/admin/view_product')}}"><i class="icon icon-pencil"></i> <span>Coupon</span> </a>
+            <ul>
+
+                <li><a href="{{url('/admin/view_coupon')}}">View Coupon</a></li>
+
+            </ul>
+        </li>
         @role('admin')
         <li class="submenu {{Request::is('role') ? 'active' : ''}}"> <a href="{{url('role')}}"><i class="icon icon-info-sign"></i> <span>Role</span> </a>
             <ul>

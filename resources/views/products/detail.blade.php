@@ -5,6 +5,13 @@
 <section>
     <div class="container">
         <div class="row">
+            @if(Session::has('flash_message_error'))
+                <div class="alert alert-error alert-block" style="background-color: #ce8483">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>  {!! session('flash_message_error') !!}</strong>
+                </div>
+
+            @endif
             <div class="col-sm-3">
 
 
@@ -15,28 +22,26 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{ asset('uploads/products/'.$productDetail->image, true) }}" alt="" />
-                            <h3>ZOOM</h3>
+                            <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
+                                <a href="{{ asset('uploads/products/images.png') }}">
+                            <img style="width:350px;" class="mainImage" src="{{ asset('uploads/products/'.$productDetail->image, true) }}" alt="" />
+                                </a>
+                            {{--<h3>ZOOM</h3>--}}
+                            </div>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
-                                <div class="item active">
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar3.jpg')}}" alt=""></a>
+                                <div class="item active thumbnails">
+                                    @foreach($productAltImages as $image)
+                                        <a href="javascript:void(0);" >
+                                            <img class="changeImage" style="width:80px;cursor: pointer;" src="{{ asset('uploads/products/'.$image->image, true) }}" alt="">
+                                        </a>
+                                        @endforeach
+
                                 </div>
-                                <div class="item">
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar3.jpg')}}" alt=""></a>
-                                </div>
-                                <div class="item">
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('images/frontend_images/product-details/similar3.jpg')}}" alt=""></a>
-                                </div>
+
 
                             </div>
 
@@ -51,6 +56,16 @@
 
                     </div>
                     <div class="col-sm-7">
+
+
+                        <form name="addtocartForm" id="addtocartForm" action="{{url('add-cart')}}" method="post">
+                            {{csrf_field()}}
+                        <input type="hidden" name="product_id" name="product_id" value="{{$productDetail->id}}">
+                            <input type="hidden" name="product_name" name="product_name" value="{{$productDetail->product_name}}">
+                            <input type="hidden" name="product_color" name="product_color" value="{{$productDetail->product_color}}">
+                            <input type="hidden" name="product_code" name="product_code" value="{{$productDetail->product_code}}">
+                            <input type="hidden" name="price" name="price" value="{{$productDetail->price}}">
+
                         <div class="product-information"><!--/product-information-->
                             <img src="{{asset('images/frontend_images/product-details/new.jpg')}}" class="newarrival" alt="" />
                             <h2>{{$productDetail->product_name}}</h2>
@@ -67,17 +82,24 @@
                             <span>
                                 <span>KD <span id="getPrice">{{$productDetail->price}}</span></span>
 									<label>Quantity:</label>
-									<input type="text" value="1" />
-									<button type="button" class="btn btn-fefault cart">
+									<input type="text" name="quantity" id="quantity" value="1" />
+                                @if($total_stock > 0)
+									<button type="submit" id="cartButton" type="button" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
 									</button>
+                                    @endif
 								</span>
-                            <p><b>Availability:</b> In Stock</p>
+                            <p><b>Availability:</b> <span id="avaibility">@if($total_stock > 0)In Stock @else Out Of Stock @endif</span></p>
                             <p><b>Condition:</b> New</p>
 
-                            <a href=""><img src="{{asset('images/frontend_images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
+                            <a href="#"><img src="{{asset('images/frontend_images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
                         </div><!--/product-information-->
+                        </form>
+
+
+
+
                     </div>
                 </div><!--/product-details-->
 
@@ -142,82 +164,27 @@
 
                     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="item active">
+                            <?php $count = 1; ?>
+                            @foreach($relatedProducts->chunk(3) as $chunk)
+                            <div <?php if($count == 1) { ?> class="item active" <?php } else { ?> class="item" <?php } ?>>
+                                @foreach($chunk as $item)
                                 <div class="col-sm-4">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="{{asset('images/frontend_images/home/recommend1.jpg')}}" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                <img src="{{ asset('uploads/products/'.$item->image, true) }}" alt="" />
+                                                <h2>KWD {{$item->price}}</h2>
+                                                <p>{{$item->product_name}}</p>
+                                                <a href="{{url('product/'.$item->id)}}"><button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{asset('images/frontend_images/home/recommend2.jpg')}}" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{asset('images/frontend_images/home/recommend3.jpg')}}" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                               @endforeach
+
                             </div>
-                            <div class="item">
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{asset('images/frontend_images/home/recommend1.jpg')}}" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{asset('images/frontend_images/home/recommend2.jpg')}}" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{asset('images/frontend_images/home/recommend3.jpg')}}" alt="" />
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <?php $count++; ?>
+                           @endforeach
                         </div>
                         <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
                             <i class="fa fa-angle-left"></i>
